@@ -1,12 +1,17 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
 
 const Landing = () => {
     const [color, setColor] = useState("")
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const submitHandler = e => {
       e.preventDefault()
+      // we want to dispatch the current value of 'color' to the store
+      // dispatch accepts 1 agrument - the action object
+      dispatch({ type: 'SET_COLOR', payload: color })
 
       navigate('/home')
     }
@@ -18,6 +23,7 @@ const Landing = () => {
                 placeholder="Enter your favorite color"
                 onChange={e => setColor(e.target.value)}
             />
+            <button type="submit">Submit</button>
         </form>
     )
 }
